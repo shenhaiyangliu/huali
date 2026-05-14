@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#216d5b">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="华历">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>华历 - 天干地支农历</title>
+  <link rel="manifest" href="./site.webmanifest">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="phone-shell" aria-label="中国农历手机应用原型">
+    <section class="app-screen">
+      <header class="topbar">
+        <button class="icon-button" id="prevMonth" type="button" aria-label="上个月">‹</button>
+        <div>
+          <p class="eyebrow">华历</p>
+          <h1 id="monthTitle">丙午年 四月</h1>
+        </div>
+        <button class="icon-button" id="nextMonth" type="button" aria-label="下个月">›</button>
+      </header>
+
+      <section class="page active" data-page="calendar">
+        <section class="year-card" aria-label="天干地支纪年">
+          <div>
+            <span class="pill">天干地支纪年</span>
+            <h2 id="ganzhiYear">丙午年</h2>
+            <p id="yearMeaning">丙属阳火，午为马。火势明朗，宜主动生发。</p>
+          </div>
+          <div class="seal" aria-hidden="true">午</div>
+        </section>
+
+        <section class="today-panel" aria-label="今日农历">
+          <div>
+            <p class="label" id="selectedLabel">所选日期</p>
+            <h3 id="solarDate">2026年5月14日</h3>
+            <p id="lunarDate">农历四月廿八</p>
+          </div>
+          <div class="moon">
+            <span id="moonIcon">◐</span>
+            <small>月相</small>
+          </div>
+        </section>
+
+        <section class="ganzhi-panel" aria-label="所选日期干支">
+          <div class="ganzhi-panel-head">
+            <p class="label">所选日期干支</p>
+            <strong id="ganzhiDate">丙午年 癸巳月 戊子日</strong>
+          </div>
+          <div class="pillar-grid">
+            <article>
+              <span>年柱</span>
+              <b id="yearPillar">丙午</b>
+            </article>
+            <article>
+              <span>月柱</span>
+              <b id="monthPillar">癸巳</b>
+            </article>
+            <article>
+              <span>日柱</span>
+              <b id="dayPillar">戊子</b>
+            </article>
+            <article>
+              <span>时柱</span>
+              <b id="hourStem">丁巳时</b>
+            </article>
+          </div>
+          <p class="hour-note" id="hourText">此刻 10:52，09:00 - 10:59</p>
+        </section>
+
+        <section class="date-search" aria-label="日期查询">
+          <input id="dateInput" type="date" value="2026-05-14" aria-label="选择公历日期">
+          <button id="goDate" type="button">查询</button>
+          <button id="todayButton" type="button">今天</button>
+        </section>
+
+        <section class="calendar" aria-label="月历">
+          <div class="weekdays">
+            <span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>
+          </div>
+          <div class="days" id="calendarDays"></div>
+        </section>
+
+        <section class="info-grid" aria-label="当日信息">
+          <article>
+            <p>节气</p>
+            <strong id="solarTerm">小满将至</strong>
+            <span id="solarTermText">阳气渐盛，麦粒始满</span>
+          </article>
+          <article>
+            <p>宜</p>
+            <strong id="goodThings">纳采 出行</strong>
+            <span id="goodText">适合安排拜访与短途计划</span>
+          </article>
+          <article>
+            <p>忌</p>
+            <strong id="badThings">动土 安葬</strong>
+            <span id="badText">重大开工可另择吉日</span>
+          </article>
+          <article>
+            <p>当地天气</p>
+            <strong id="weatherTitle">定位中</strong>
+            <span id="weatherText">请允许浏览器定位以显示天气</span>
+          </article>
+        </section>
+      </section>
+
+      <section class="page" data-page="choose">
+        <section class="tool-card">
+          <p class="label">择日</p>
+          <h2>按事项推荐吉日</h2>
+          <div class="form-row">
+            <select id="purposeSelect" aria-label="选择择日事项">
+              <option value="搬家">搬家入宅</option>
+              <option value="开业">开业交易</option>
+              <option value="出行">出行会友</option>
+              <option value="签约">签约订盟</option>
+              <option value="学习">学习写作</option>
+            </select>
+            <button id="refreshAuspicious" type="button">推荐</button>
+          </div>
+        </section>
+        <section class="list-panel" id="auspiciousList" aria-label="推荐吉日"></section>
+      </section>
+
+      <section class="page" data-page="stems">
+        <section class="tool-card">
+          <p class="label">干支</p>
+          <h2>四柱查询</h2>
+          <div class="form-row">
+            <input id="stemsInput" type="datetime-local" value="2026-05-14T10:52" aria-label="选择日期时间">
+            <button id="stemsSearch" type="button">查询</button>
+          </div>
+        </section>
+        <section class="ganzhi-panel compact" aria-label="四柱查询结果">
+          <div class="ganzhi-panel-head">
+            <p class="label">查询结果</p>
+            <strong id="stemsFull">丙午年 癸巳月 戊子日 丁巳时</strong>
+          </div>
+          <div class="pillar-grid">
+            <article><span>年柱</span><b id="stemsYear">丙午</b></article>
+            <article><span>月柱</span><b id="stemsMonth">癸巳</b></article>
+            <article><span>日柱</span><b id="stemsDay">戊子</b></article>
+            <article><span>时柱</span><b id="stemsHour">丁巳</b></article>
+          </div>
+        </section>
+        <section class="knowledge-grid">
+          <article><p>天干</p><strong>阴阳五行</strong><span>十干用于标记气的阶段与属性。</span></article>
+          <article><p>地支</p><strong>生肖方位</strong><span>十二支对应月份、时辰与生肖。</span></article>
+          <article><p>月柱</p><strong>按节切换</strong><span>立春起寅月，立夏起巳月。</span></article>
+          <article><p>时柱</p><strong>按日干起时</strong><span>日干决定子时天干，再顺推。</span></article>
+        </section>
+      </section>
+
+      <section class="page" data-page="mine">
+        <section class="profile-card">
+          <div>
+            <p class="label">我的</p>
+            <h2>个人历法中心</h2>
+            <span>收藏吉日、设置生肖与天气城市</span>
+          </div>
+          <div class="profile-seal">历</div>
+        </section>
+        <section class="settings-list">
+          <article>
+            <div><strong>收藏日期</strong><span id="favoritePreview">暂无收藏，先从择日页挑一个</span></div>
+            <button type="button">查看</button>
+          </article>
+          <article>
+            <div><strong>我的生肖</strong><span>用于冲煞与提醒</span></div>
+            <select aria-label="选择生肖">
+              <option>马</option><option>鼠</option><option>牛</option><option>虎</option><option>兔</option><option>龙</option>
+              <option>蛇</option><option>羊</option><option>猴</option><option>鸡</option><option>狗</option><option>猪</option>
+            </select>
+          </article>
+          <article>
+            <div><strong>天气城市</strong><span>默认使用浏览器定位</span></div>
+            <button type="button" id="reloadWeather">更新</button>
+          </article>
+          <article>
+            <div><strong>显示偏好</strong><span>四柱、宜忌、节气默认显示</span></div>
+            <button type="button">管理</button>
+          </article>
+        </section>
+      </section>
+
+      <nav class="tabbar" aria-label="底部导航">
+        <button class="active" type="button" data-tab="calendar">日历</button>
+        <button type="button" data-tab="choose">择日</button>
+        <button type="button" data-tab="stems">干支</button>
+        <button type="button" data-tab="mine">我的</button>
+      </nav>
+    </section>
+  </main>
+  <script src="./app.js"></script>
+</body>
+</html>

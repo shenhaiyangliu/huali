@@ -1,0 +1,9 @@
+{
+  "name": "华历",
+  "short_name": "华历",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#fbf7ef",
+  "theme_color": "#216d5b",
+  "lang": "zh-CN"
+}
